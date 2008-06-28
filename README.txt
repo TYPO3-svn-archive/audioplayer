@@ -1,2 +1,2 @@
 
-An API Documentation and a Tutorial can be found in the Doocumentaion (doc/manual.sxw).  
+An api documentation and a tutorial can be found in the documentaion (doc/manual.sxw).  
