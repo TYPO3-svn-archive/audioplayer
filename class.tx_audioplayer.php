@@ -25,9 +25,9 @@
 require_once(PATH_tslib.'class.tslib_pibase.php');
 
  /**
-  * Top level class for the 'audioplayer' extension.
+  * 'audioplayer' extension class
   *
-  * The 'audioplayer' extension provides an api for other extensions to 
+  * The 'audioplayer' extension provides an api for other extensions to
   * show an mp3 flash audio player (1pixelout.net WordPress player)
   *
   * $Id:
@@ -36,7 +36,7 @@ require_once(PATH_tslib.'class.tslib_pibase.php');
   * @package		TYPO3
   * @subpackage 	tx_audioplayer
   */
-class tx_audioplayer extends tslib_pibase {
+class tx_audioplayer {
 	var $prefixId		= 'tx_audioplayer';		// Same as class name
 	var $scriptRelPath	= 'class.tx_audioplayer.php';	// Path to this script relative to the extension dir.
 	var $extKey			= 'audioplayer';	// The extension key.
@@ -44,40 +44,34 @@ class tx_audioplayer extends tslib_pibase {
 	var $configJS;
 	var $defaultVars;
 	var $Vars;
-	
-	
+
+
 	function init() {
-		/*$this->conf=$conf;
-		$this->pi_setPiVarDefaults();
-		$this->pi_loadLL();*/
-		
+
 		$this->flashFile = t3lib_extMgm::siteRelPath($this->extKey).'res/player.swf';
 		$this->configJS= t3lib_extMgm::siteRelpath($this->extKey).'res/audio-player.js';
-		//$this->configJS[] = t3lib_extMgm::siteRelpath($extKey).'res/audioplayer.js';
-		
+
 		$this->defaultVars = array(
 			'autostart' => 'no', 'loop' => 'no', 'animation' => 'yes', 'remaining' => 'no', 'noinfo' => 'no',
 			'initialvolume' => 60, 'buffer' => 5, 'encode' => 'no', 'checkpolicy' => 'no', 'width' => 290,
-			'transparentbg' => 'no', 'pagebg' => '', 
+			'transparentbg' => 'no', 'pagebg' => '',
 			'bg' => 'E5E5E5', 'leftbg' => 'CCCCCC', 'lefticon' => '333333', 'voltrack' => 'F2F2F2',
 			'volslider' => '666666', 'rightbg' => 'B4B4B4', 'rightbghover' => '999999', 'righticon' => '333333',
 			'righticonhover' => 'FFFFFF', 'loader' => '009900', 'track' => 'FFFFFF',
 			'tracker' => 'DDDDDD', 'border' => 'CCCCCC', 'skip' => '666666', 'text' => '333333'
 		);
-		
 		$this->Vars = array();
-		
 	}
-	
+
 	/**
 	 * Set the options for flashfile
 	 * see manual for complete option reference
 	 *
-	 * @param	[array]		$options: array with options
-	 * @return	[boolean]
+	 * @param	array		$options: array with options
+	 * @return	boolean
 	 */
 	function setOptions($options=array()) {
-		if (function_exists('array_intersect_key')) { //function 'array_intersect_key' is only availabe for php >= 5.1.0 
+		if (function_exists('array_intersect_key')) { //function 'array_intersect_key' is only availabe for php >= 5.1.0
 			$options = array_intersect_key($options,$this->defaultVars);
 		}
 		if (is_array($options)) {
@@ -92,47 +86,46 @@ class tx_audioplayer extends tslib_pibase {
 	 * Adjust colors of the flashfile
 	 * see manual for complete option reference
 	 *
-	 * @param	[array]		$options: array with options
-	 * @return	[boolean]
-	 */	
+	 * @param	array		$options: array with options
+	 * @return	boolean
+	 */
 	function setColors($options=array()) {
-		if (function_exists('array_intersect_key')) { //function 'array_intersect_key' is only availabe for php >= 5.1.0 
-			$options = array_intersect_key($options,$this->defaultVars);
-		}
-		if (is_array($options)) {
-			$this->flashVars = array_merge(is_array($this->flashVars) ? $this->flashVars : array(), $options);
-			return true;
-		} else {
-			return false;
-		}
+		return $this->setOptions($options);
 	}
-	
+
 	/**
 	 * Returns code for AudioFlashPlayer
 	 *
-	 * @return	[string]		code for Flashplayer, which can be placed on website
+	 * @param	string		$file: path to the mp3 file, multiple files can be passedthrough in an array  
+	 * @param	integer		$playerId: ID of the player (only needed, when more then one player is used on one page)
+	 * @param	string		$titles: Title to be shown in player, mutiple titles for multiple files as array
+	 * @param	string		$artists: Artist to be shown in player, mutiple artists for multiple files as array
+	 * @return	string		code for Flashplayer, which can be placed on website
 	 */
-	function getFlashPlayer($file, $titles='', $artists='') {
-		$GLOBALS['TSFE']->additionalHeaderData['tx_audioplayer1'] = '<script type="text/javascript" src="'.$this->configJS.'"></script>';
-				
+	function getFlashPlayer($file, $playerId=1, $titles='', $artists='') {
 		$this->checkVars();
 		$renderedVars = $this->renderVars();
+		$renderdTracksOptions = $this->renderTracksOptions($file, $titles, $artists);
 		
+		if ($renderdTracksOptions === false) {
+			return 'no file to play';
+		}
+		
+		$GLOBALS['TSFE']->additionalHeaderData['tx_audioplayer1'] = '<script type="text/javascript" src="'.$this->configJS.'"></script>';		
 		$GLOBALS['TSFE']->additionalHeaderData['tx_audioplayer2'] = '<script type="text/javascript">AudioPlayer.setup("'.$this->flashFile.'", {'.$renderedVars.'});</script>';
-		$content .= 'AudioPlayer.embed("audioplayer_1", ';
-		$content .= '{soundFile: "'.$file.'"';
-		//$content .= !empty($title) ? 'titles: "'.$titles.'", ' : '';
-		//$content .= !empty($title) ? 'artists: "'.$artists.'", ' : '';
+		$content .= 'AudioPlayer.embed("audioplayer_'.$playerId.'", {';
+		$content .= $renderdTracksOptions;
 		$content .= '});';
-		
-		return '<p id="audioplayer_1">Alternative content</p>
+
+		return '<div id="audioplayer_'.$playerId.'">Alternative content</div>
 		'.t3lib_div::wrapJS($content);
 	}
-	
+
 	/**
 	 * Checks all option/color input values and converts them to valid values
 	 * keys not present in $this->defaultVars are sorted out
 	 *
+	 * @return	boolean		sucess of function
 	 */
 	function checkVars() {
 		$result = array();
@@ -145,7 +138,7 @@ class tx_audioplayer extends tslib_pibase {
 					$result[$key] = intval($this->Vars[$key]);
 					if ($result[$key] === null) unset($result[$key]);
 				} else {
-					$result[$key] = substr(strtoupper(strval($this->Var[$key])),0,6);
+					$result[$key] = substr(strtoupper(strval($this->Vars[$key])),0,6);
 					if (empty($result[$key])) unset($result[$key]);
 				}
 			}
@@ -153,13 +146,14 @@ class tx_audioplayer extends tslib_pibase {
 		if (!isset($result['width'])) $result['width'] = $this->defaultVars['width'];
 		$this->Vars = $result;
 		unset($result);
+		return true;
 	}
-	
+
 	/**
-	 * Converts values like '1', 'True', true to expected boolean input of player.swf (='yes'/'no') 
+	 * Converts values like '1', 'True', true to expected boolean input of player.swf (='yes'/'no')
 	 *
-	 * @param	[mixed]			$input: some unknow input, expected to be boolean
-	 * @return	[string]		'yes' or 'no'
+	 * @param	mixed		$input: some unknow input, expected to be boolean
+	 * @return	string		'yes' or 'no'
 	 */
 	function convBoolean($input) {
 		if (gettype($input)==='boolean') {
@@ -191,14 +185,50 @@ class tx_audioplayer extends tslib_pibase {
 	}
 
 	/**
+	 * Renders 'soundFile', 'titles' and 'artists' variables for output
+	 *
+	 * @param	string/array		$file: filename(s) for output
+	 * @param	string/array		$titles: title(s) for output
+	 * @param	string/array		$artists: artist(s) for output
+	 * @return	string
+	 */
+	function renderTracksOptions($file, $titles, $artists) {
+		$content = '';
+		if(!empty($file)) {
+			if(is_array($file)) {
+				$content .= 'soundFile: "'.implode(',',$file).'"';
+			} else {
+				$content .= 'soundFile: "'.$file.'"';
+			}
+		} else {
+			return false;
+		}
+		if(!empty($titles)) {
+			if(is_array($titles)) {
+				$content .= ', titles: "'.implode(',',$titles).'"';
+			} else {
+				$content .= ', titles: "'.$titles.'"';
+			}
+		}
+		if(!empty($artists)) {
+			if(is_array($artists)) {
+				$content .= ', artists: "'.implode(',',$artists).'"';
+			} else {
+				$content .= ', artists: "'.$artists.'"';
+			}
+		}
+		return $content;
+	}
+	
+	/**
 	 * Renders $this->Vars for output
 	 *
-	 * @return	[string]		rendered array
+	 * @return	string		rendered array
 	 */
 	function renderVars() {
 		$result = array();
 		foreach ($this->Vars as $key => $value) {
-			 $result[] = $key.': '.(is_int($value) ? $value : '"'.$value.'"');  
+			 $result[] = $key.': '.(is_int($value) ? $value : '"'.$value.'"');
 		}
 		return implode(', ',$result);
 	}
