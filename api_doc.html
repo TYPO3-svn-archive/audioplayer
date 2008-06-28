@@ -1,0 +1,509 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head>
+
+
+
+
+	<style type="text/css" id="internalStyle">
+		/*<![CDATA[*/
+
+			BODY, TD { font-family: arial, helvetica, verdana; font-size: 12px; }
+
+			H2 { background-color: #999999; text-align: center; padding: 20px 2px 20px 2px; }
+			H2.c-details {margin-top: 100px; }
+			H3 { background-color: #cccccc; padding: 2px 2px 2px 10px;}
+			H4 { background-color: #eeeeee;  padding: 2px 2px 2px 10px;}
+			A { text-decoration: none; color: black; }
+			P.c-headerDescription { font-style: italic; }
+			TABLE TR TD {padding: 2px 3px 2px 3px; }
+			TABLE TR {background-color: #ddddcc; }
+			TABLE { margin: 5px 0px 10px 0px;}
+			DIV#c-body DIV.c-function TABLE.c-details TR TD.c-Hcell,
+					DIV#c-body DIV.c-class TABLE.c-details TR TD.c-Hcell {background-color: #ccdddd; font-weight: bold; }
+
+			DIV#c-body TABLE.c-details {margin-top: 5px; width: 90%; }
+			DIV#c-body DIV.c-function  TABLE.c-details {width: 100%; }
+			DIV#c-body TABLE.c-details TR TD.c-Hcell {width: 25%;}
+			DIV#c-body TABLE.c-details TR TD.c-vDescr {width: 75%;}
+			.typo3-red { color: red; }
+			.typo3-dimmed { color: #333333; }
+			DIV#c-index P.c-indexTags { margin: 0px 0px 0px 110px; font-size:11px;}
+			DIV#c-index H4.c-function { margin-left: 80px; }
+
+			DIV#s-index {margin-top: 20px;}
+			DIV#s-index H3 {background-color: #ccbbbb; margin: 0px 0px 0px 30px;}
+
+
+			DIV#c-index { margin-left: 30px; }
+			DIV#c-index H4 { margin-left: 60px; margin-top: 0px; margin-bottom: 1px;}
+			DIV#c-index P.c-fileDescription { margin-top: 0px; margin-bottom: 5px; }
+			DIV#c-index H3 { margin-bottom: 5px;}
+			DIV#c-body H4 { background-color: #cccccc; }
+			DIV#c-body DIV.c-class P.c-funcDescription {font-style: italic;}
+			DIV#c-body DIV.c-class H4 { margin-bottom: 5px;}
+			DIV#c-body DIV.c-class { margin-left: 30px; margin-top: 30px;}
+			DIV#c-body H4 { margin-bottom: 5px;}
+			DIV#c-body DIV.c-header P.c-fileDescription {font-style: italic;}
+			DIV#c-body DIV.c-function { margin-left: 60px;  margin-top: 30px;  margin-right: 100px; }
+			DIV#c-body DIV.c-function P.c-funcDescription {font-style: italic; margin: 5px 0px 5px 0px;}
+			DIV#c-body DIV.c-header { margin-top: 100px; }
+			DIV#c-body DIV.c-header H3 { background-color: #998888; font-size: 18px;}
+
+			DIV#c-APIdoc H3.section { margin-left: 100px; }
+		/*]]>*/
+	</style>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta name="GENERATOR" content="TYPO3 3.6.0-dev, http://typo3.com, © Kasper Skårhøj 1998-2003, extensions are copyright of their respective owners.">
+	<title>API: class.tx_audioplayer.php</title>
+</head><body>
+<div id="c-APIdoc">
+
+			<h2>class.tx_audioplayer.php</h2>
+			<p class="c-headerDescription">'audioplayer' extension class<br>
+<br>
+The 'audioplayer' extension provides an api for other extensions to<br>
+show an mp3 flash audio player (1pixelout.net WordPress player)</p>
+			<p>&nbsp;</p>
+			<p>
+			Files: <strong>1</strong><br>
+			Total filesizes: <strong>8.7 Kbytes</strong><br>
+			Functions and classes: <strong>9</strong><br>
+			</p>
+
+			
+
+			<div id="c-index">
+			<h3><a name="s-7bee2f82eddc24b532beaff52810f8e6"></a><a href="#7bee2f82eddc24b532beaff52810f8e6">class.tx_audioplayer.php</a></h3>
+			<p class="c-fileDescription">'audioplayer' extension class<br>
+<br>
+The 'audioplayer' extension provides an api for other extensions to<br>
+show an mp3 flash audio player (1pixelout.net WordPress player)</p>
+						<h4 class="c-class"><a href="#264e428ffda761e9dd71911789233fc5">class tx_audioplayer </a></h4><p class="c-indexTags"><span class="typo3-dimmed"><strong>@package:</strong> TYPO3 </span></p><p class="c-indexTags"><span class="typo3-dimmed"><strong>@subpackage:</strong> tx_audioplayer </span></p>
+						<h4 class="c-function"><a href="#9d43b53e0e66ad25c9c9eb1dff674751">function init() </a></h4>
+						<h4 class="c-function"><a href="#2d2069b18fc8ed781ab3c1cccda54fe6">function setOptions($options=array()) </a></h4>
+						<h4 class="c-function"><a href="#8e8ea710863ea183f838a4b8af5b83b2">function setColors($options=array()) </a></h4>
+						<h4 class="c-function"><a href="#9e759e09e83494cb71223eeaf5fa0555">function getFlashPlayer($file, $playerId=1, $titles='', $artists='') </a></h4>
+						<h4 class="c-function"><a href="#a195b77ad9d344b5e0c1b3eb06f7248b">function checkVars() </a></h4>
+						<h4 class="c-function"><a href="#eb5b7419038623294efac8dee711cc2f">function convBoolean($input) </a></h4>
+						<h4 class="c-function"><a href="#8341a12ef3e4245532f75e15202dd870">function renderTracksOptions($file, $titles, $artists) </a></h4>
+						<h4 class="c-function"><a href="#3e438fbce73b8288923c06ca38b7b9de">function renderVars() </a></h4></div>
+
+			<h2 class="c-details">Detailed descriptions:</h2>
+			<div id="c-body">
+
+					<!--
+						API content for file: class.tx_audioplayer.php
+					-->
+					<div class="c-header">
+						<a name="7bee2f82eddc24b532beaff52810f8e6"></a>
+						<h3><a href="#top">class.tx_audioplayer.php</a></h3>
+						<p class="c-fileDescription">'audioplayer' extension class<br>
+<br>
+The 'audioplayer' extension provides an api for other extensions to<br>
+show an mp3 flash audio player (1pixelout.net WordPress player)</p>
+
+						<table class="c-details" border="0" cellpadding="0" cellspacing="1">
+							<tbody><tr>
+								<td class="c-Hcell">Filesize:</td>
+								<td>8.7 K</td>
+							</tr>
+							<tr>
+								<td class="c-Hcell">Func/Classes:</td>
+								<td>9</td>
+							</tr>
+							<tr>
+								<td class="c-Hcell">Tags:</td>
+								<td>@author		Peter Schuster &lt;typo3@peschuster.de&gt;<br>
+@package		TYPO3<br>
+@subpackage 	tx_audioplayer</td>
+							</tr>
+						</tbody></table>
+					</div>
+			
+					<!--
+						Description for "class tx_audioplayer "
+					-->
+					<div class="c-class">
+						<a name="264e428ffda761e9dd71911789233fc5"></a>
+						<h4><a href="#top">class tx_audioplayer </a></h4>
+						<p class="c-funcDescription">'audioplayer' extension class<br>
+<br>
+The 'audioplayer' extension provides an api for other extensions to<br>
+show an mp3 flash audio player (1pixelout.net WordPress player)</p>
+						
+						<table class="c-details" border="0" cellpadding="0" cellspacing="1">
+							
+							<tbody><tr>
+								<td class="c-Hcell">Returns: </td>
+								<td class="c-vType">[type]</td>
+								<td class="c-vDescr">...</td>
+							</tr>
+							
+							<tr>
+								<td>&nbsp;</td>
+								<td colspan="2" class="c-vDescr">@author		Peter Schuster &lt;typo3@peschuster.de&gt;</td>
+							</tr>
+							
+							<tr>
+								<td>&nbsp;</td>
+								<td colspan="2" class="c-vDescr">@package		TYPO3</td>
+							</tr>
+							
+							<tr>
+								<td>&nbsp;</td>
+								<td colspan="2" class="c-vDescr">@subpackage 	tx_audioplayer</td>
+							</tr>
+							
+							<tr>
+								<td colspan="3"></td>
+							</tr>
+							<tr>
+								<td class="c-Hcell">Total Usage:</td>
+								<td class="c-vType">0</td>
+								<td class="c-vDescr">&nbsp;</td>
+							</tr>
+						</tbody></table>
+					</div>
+					
+					<!--
+						Description for "function init() "
+					-->
+					<div class="c-function">
+						<a name="9d43b53e0e66ad25c9c9eb1dff674751"></a>
+						<h4><a href="#top">function init() </a></h4>
+						<p class="c-funcDescription">Initiates class 'tx_audioplayer</p>
+						
+						<table class="c-details" border="0" cellpadding="0" cellspacing="1">
+							
+							<tbody><tr>
+								<td class="c-Hcell">Returns: </td>
+								<td class="c-vType">boolean</td>
+								<td class="c-vDescr">sucess of function</td>
+							</tr>
+							
+							<tr>
+								<td colspan="3"></td>
+							</tr>
+							<tr>
+								<td class="c-Hcell">Total Usage:</td>
+								<td class="c-vType">1</td>
+								<td class="c-vDescr">&nbsp;</td>
+							</tr>
+							
+							<tr>
+								<td class="c-vType">&nbsp;</td>
+								<td class="c-vType">1</td>
+								<td class="c-vDescr">tests/tx_audioplayer_testcase.php</td>
+							</tr>
+						</tbody></table>
+					</div>
+					
+					<!--
+						Description for "function setOptions($options=array()) "
+					-->
+					<div class="c-function">
+						<a name="2d2069b18fc8ed781ab3c1cccda54fe6"></a>
+						<h4><a href="#top">function setOptions($options=array()) </a></h4>
+						<p class="c-funcDescription">Set options for the flash file<br>
+see manual for complete option reference</p>
+						
+						<table class="c-details" border="0" cellpadding="0" cellspacing="1">
+							
+							<tbody><tr>
+								<td class="c-Hcell">$options=array()</td>
+								<td class="c-vType">array</td>
+								<td class="c-vDescr">$options: array with options</td>
+							</tr>
+							
+							<tr>
+								<td class="c-Hcell">Returns: </td>
+								<td class="c-vType">boolean</td>
+								<td class="c-vDescr"></td>
+							</tr>
+							
+							<tr>
+								<td colspan="3"></td>
+							</tr>
+							<tr>
+								<td class="c-Hcell">Total Usage:</td>
+								<td class="c-vType">1</td>
+								<td class="c-vDescr">&nbsp;</td>
+							</tr>
+							
+							<tr>
+								<td class="c-vType">&nbsp;</td>
+								<td class="c-vType">1</td>
+								<td class="c-vDescr">class.tx_audioplayer.php</td>
+							</tr>
+						</tbody></table>
+					</div>
+					
+					<!--
+						Description for "function setColors($options=array()) "
+					-->
+					<div class="c-function">
+						<a name="8e8ea710863ea183f838a4b8af5b83b2"></a>
+						<h4><a href="#top">function setColors($options=array()) </a></h4>
+						<p class="c-funcDescription">Adjust colors of the flash file<br>
+see manual for complete option reference</p>
+						
+						<table class="c-details" border="0" cellpadding="0" cellspacing="1">
+							
+							<tbody><tr>
+								<td class="c-Hcell">$options=array()</td>
+								<td class="c-vType">array</td>
+								<td class="c-vDescr">$options: array with options</td>
+							</tr>
+							
+							<tr>
+								<td class="c-Hcell">Returns: </td>
+								<td class="c-vType">boolean</td>
+								<td class="c-vDescr"></td>
+							</tr>
+							
+							<tr>
+								<td colspan="3"></td>
+							</tr>
+							<tr>
+								<td class="c-Hcell">Total Usage:</td>
+								<td class="c-vType">0</td>
+								<td class="c-vDescr">&nbsp;</td>
+							</tr>
+						</tbody></table>
+					</div>
+					
+					<!--
+						Description for "function getFlashPlayer($file, $playerId=1, $titles='', $artists='') "
+					-->
+					<div class="c-function">
+						<a name="9e759e09e83494cb71223eeaf5fa0555"></a>
+						<h4><a href="#top">function getFlashPlayer($file, $playerId=1, $titles='', $artists='') </a></h4>
+						<p class="c-funcDescription">Returns code for AudioFlashPlayer</p>
+						
+						<table class="c-details" border="0" cellpadding="0" cellspacing="1">
+							
+							<tbody><tr>
+								<td class="c-Hcell">$file</td>
+								<td class="c-vType">string</td>
+								<td class="c-vDescr">$file: path to the mp3 file, multiple files can be passedthrough in an array</td>
+							</tr>
+							
+							<tr>
+								<td class="c-Hcell">$playerId=1</td>
+								<td class="c-vType">integer</td>
+								<td class="c-vDescr">$playerId: ID of the player (only needed, when more then one player is used on one page)</td>
+							</tr>
+							
+							<tr>
+								<td class="c-Hcell">$titles=''</td>
+								<td class="c-vType">string</td>
+								<td class="c-vDescr">$titles: Title to be shown in player, mutiple titles for multiple files as array</td>
+							</tr>
+							
+							<tr>
+								<td class="c-Hcell">$artists=''</td>
+								<td class="c-vType">string</td>
+								<td class="c-vDescr">$artists: Artist to be shown in player, mutiple artists for multiple files as array</td>
+							</tr>
+							
+							<tr>
+								<td class="c-Hcell">Returns: </td>
+								<td class="c-vType">string</td>
+								<td class="c-vDescr">code for Flashplayer, which can be placed on website</td>
+							</tr>
+							
+							<tr>
+								<td colspan="3"></td>
+							</tr>
+							<tr>
+								<td class="c-Hcell">Total Usage:</td>
+								<td class="c-vType">0</td>
+								<td class="c-vDescr">&nbsp;</td>
+							</tr>
+						</tbody></table>
+					</div>
+					
+					<!--
+						Description for "function checkVars() "
+					-->
+					<div class="c-function">
+						<a name="a195b77ad9d344b5e0c1b3eb06f7248b"></a>
+						<h4><a href="#top">function checkVars() </a></h4>
+						<p class="c-funcDescription">Checks all option/color input values and converts them to valid values<br>
+keys not present in $this-&gt;defaultVars are droped</p>
+						
+						<table class="c-details" border="0" cellpadding="0" cellspacing="1">
+							
+							<tbody><tr>
+								<td class="c-Hcell">Returns: </td>
+								<td class="c-vType">boolean</td>
+								<td class="c-vDescr"></td>
+							</tr>
+							
+							<tr>
+								<td colspan="3"></td>
+							</tr>
+							<tr>
+								<td class="c-Hcell">Total Usage:</td>
+								<td class="c-vType">2</td>
+								<td class="c-vDescr">&nbsp;</td>
+							</tr>
+							
+							<tr>
+								<td class="c-vType">&nbsp;</td>
+								<td class="c-vType">1</td>
+								<td class="c-vDescr">class.tx_audioplayer.php</td>
+							</tr>
+							
+							<tr>
+								<td class="c-vType">&nbsp;</td>
+								<td class="c-vType">1</td>
+								<td class="c-vDescr">tests/tx_audioplayer_testcase.php</td>
+							</tr>
+						</tbody></table>
+					</div>
+					
+					<!--
+						Description for "function convBoolean($input) "
+					-->
+					<div class="c-function">
+						<a name="eb5b7419038623294efac8dee711cc2f"></a>
+						<h4><a href="#top">function convBoolean($input) </a></h4>
+						<p class="c-funcDescription">Converts values like '1', 'True', true to expected boolean input of player.swf (='yes'/'no')</p>
+						
+						<table class="c-details" border="0" cellpadding="0" cellspacing="1">
+							
+							<tbody><tr>
+								<td class="c-Hcell">$input</td>
+								<td class="c-vType">mixed</td>
+								<td class="c-vDescr">$input: some unknow input, expected to be boolean</td>
+							</tr>
+							
+							<tr>
+								<td class="c-Hcell">Returns: </td>
+								<td class="c-vType">string</td>
+								<td class="c-vDescr">'yes' or 'no'</td>
+							</tr>
+							
+							<tr>
+								<td colspan="3"></td>
+							</tr>
+							<tr>
+								<td class="c-Hcell">Total Usage:</td>
+								<td class="c-vType">5</td>
+								<td class="c-vDescr">&nbsp;</td>
+							</tr>
+							
+							<tr>
+								<td class="c-vType">&nbsp;</td>
+								<td class="c-vType">1</td>
+								<td class="c-vDescr">class.tx_audioplayer.php</td>
+							</tr>
+							
+							<tr>
+								<td class="c-vType">&nbsp;</td>
+								<td class="c-vType">4</td>
+								<td class="c-vDescr">tests/tx_audioplayer_testcase.php</td>
+							</tr>
+						</tbody></table>
+					</div>
+					
+					<!--
+						Description for "function renderTracksOptions($file, $titles, $artists) "
+					-->
+					<div class="c-function">
+						<a name="8341a12ef3e4245532f75e15202dd870"></a>
+						<h4><a href="#top">function renderTracksOptions($file, $titles, $artists) </a></h4>
+						<p class="c-funcDescription">Renders 'soundFile', 'titles' and 'artists' variables for output<br>
+more than one value is passed to the function in an array</p>
+						
+						<table class="c-details" border="0" cellpadding="0" cellspacing="1">
+							
+							<tbody><tr>
+								<td class="c-Hcell">$file</td>
+								<td class="c-vType">string/array</td>
+								<td class="c-vDescr">$file: filename(s) for output</td>
+							</tr>
+							
+							<tr>
+								<td class="c-Hcell">$titles</td>
+								<td class="c-vType">string/array</td>
+								<td class="c-vDescr">$titles: title(s) for output</td>
+							</tr>
+							
+							<tr>
+								<td class="c-Hcell">$artists</td>
+								<td class="c-vType">string/array</td>
+								<td class="c-vDescr">$artists: artist(s) for output</td>
+							</tr>
+							
+							<tr>
+								<td class="c-Hcell">Returns: </td>
+								<td class="c-vType">string</td>
+								<td class="c-vDescr"></td>
+							</tr>
+							
+							<tr>
+								<td colspan="3"></td>
+							</tr>
+							<tr>
+								<td class="c-Hcell">Total Usage:</td>
+								<td class="c-vType">2</td>
+								<td class="c-vDescr">&nbsp;</td>
+							</tr>
+							
+							<tr>
+								<td class="c-vType">&nbsp;</td>
+								<td class="c-vType">1</td>
+								<td class="c-vDescr">class.tx_audioplayer.php</td>
+							</tr>
+							
+							<tr>
+								<td class="c-vType">&nbsp;</td>
+								<td class="c-vType">1</td>
+								<td class="c-vDescr">tests/tx_audioplayer_testcase.php</td>
+							</tr>
+						</tbody></table>
+					</div>
+					
+					<!--
+						Description for "function renderVars() "
+					-->
+					<div class="c-function">
+						<a name="3e438fbce73b8288923c06ca38b7b9de"></a>
+						<h4><a href="#top">function renderVars() </a></h4>
+						<p class="c-funcDescription">Returns rendered $this-&gt;Vars for output</p>
+						
+						<table class="c-details" border="0" cellpadding="0" cellspacing="1">
+							
+							<tbody><tr>
+								<td class="c-Hcell">Returns: </td>
+								<td class="c-vType">string</td>
+								<td class="c-vDescr">rendered array</td>
+							</tr>
+							
+							<tr>
+								<td colspan="3"></td>
+							</tr>
+							<tr>
+								<td class="c-Hcell">Total Usage:</td>
+								<td class="c-vType">2</td>
+								<td class="c-vDescr">&nbsp;</td>
+							</tr>
+							
+							<tr>
+								<td class="c-vType">&nbsp;</td>
+								<td class="c-vType">1</td>
+								<td class="c-vDescr">class.tx_audioplayer.php</td>
+							</tr>
+							
+							<tr>
+								<td class="c-vType">&nbsp;</td>
+								<td class="c-vType">1</td>
+								<td class="c-vDescr">tests/tx_audioplayer_testcase.php</td>
+							</tr>
+						</tbody></table>
+					</div>
+					</div>
+</div>
+</body></html>

@@ -59,16 +59,47 @@ class tx_audioplayer_testcase extends tx_t3unit_testcase {
 	}
 
 	function test_checkVars() {
-		
+		$test = array('Hello1'=>'World1','Hello2'=>'World2',
+				'autostart'=>true,'animation'=>'mussnichsein',
+				'bgmain'=>'000','bg'=>'ff0ec9','rightbghover'=>'fef','leftbg'=>'0','traker'=>'F');
+		$expected = array('width'=>290,'autostart'=>'yes','bg'=>'FF0EC9','rightbghover'=>'FFEEFF','leftbg'=>'000000');
+		$this->audioplayer->init();
+		$temp = $this->audioplayer->Vars;
+		$this->audioplayer->Vars = $test;
+		$this->audioplayer->checkVars();
+		$result = $this->audioplayer->Vars;
+		sort($result); sort($expected);
+		self::assertEquals($result,$expected,$result);
+		$this->audioplayer->Vars = $temp;
 	}
 	
 	function test_renderVars() {
 		$test = array('Hello1'=>'World1','Hello2'=>'World2');
-		$cache = $this->audioplayer->Vars; 
+		$temp = $this->audioplayer->Vars; 
 		$this->audioplayer->Vars = $test;
 		$result = $this->audioplayer->renderVars();
 		self::assertEquals($result, 'Hello1: "World1", Hello2: "World2"',$result);
-		$this->audioplayer->Vars = $cache;
+		$this->audioplayer->Vars = $temp;
+	}
+
+	function test_renderTracksOptions() {
+		$testcases = array(
+			array('hallo.mp3','',''),
+			array('','hello','world'),
+			array('hal lo.mp3','<bold>',''),
+			array(array('http://www.this.tld/index.php?id=1','hallo.mp4'),'','')
+		);
+		$expectedresults = array(
+			'soundFile: "hallo.mp3"',
+			false,
+			'soundFile: "hal%20lo.mp3", titles: "<bold>"',
+			'soundFile: "http%3A%2F%2Fwww.this.tld%2Findex.php%3Fid%3D1,hallo.mp4"'
+		);
+		foreach ($testcases as $key => $testcase) {
+			list($test_file,$test_titles,$test_artists) = $testcase;
+			$result = $this->audioplayer->renderTracksOptions($test_file,$test_titles,$test_artists);
+			self::assertEquals($result, $expectedresults[$key], $result);
+		}		
 	}
 }
 

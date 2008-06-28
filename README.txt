@@ -1,2 +1,2 @@
 
-Feel free to add some documentation or simply add a link to the online manual.
+An API Documentation and a Tutorial can be found in the Doocumentaion (doc/manual.sxw).  

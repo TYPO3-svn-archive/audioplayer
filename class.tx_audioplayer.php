@@ -30,8 +30,6 @@ require_once(PATH_tslib.'class.tslib_pibase.php');
   * The 'audioplayer' extension provides an api for other extensions to
   * show an mp3 flash audio player (1pixelout.net WordPress player)
   *
-  * $Id:
-  *
   * @author		Peter Schuster <typo3@peschuster.de>
   * @package		TYPO3
   * @subpackage 	tx_audioplayer
@@ -40,14 +38,21 @@ class tx_audioplayer {
 	var $prefixId		= 'tx_audioplayer';		// Same as class name
 	var $scriptRelPath	= 'class.tx_audioplayer.php';	// Path to this script relative to the extension dir.
 	var $extKey			= 'audioplayer';	// The extension key.
-	var $flashFile;
-	var $configJS;
-	var $defaultVars;
-	var $Vars;
+	var $flashFile;			//path to the flash player file
+	var $configJS;			//path to the javascript file which configures the player
+	var $defaultVars;		//default variable values for the flash player 
+	var $Vars;				//variables that are passed to the player
+	var $noJSMessage	= 'Please activate javascript to show the mp3 audio player.';
+	
 
 
+	/**
+	 * Initiates class 'tx_audioplayer
+	 *
+	 * @access 	public
+	 * @return	boolean		sucess of function
+	 */
 	function init() {
-
 		$this->flashFile = t3lib_extMgm::siteRelPath($this->extKey).'res/player.swf';
 		$this->configJS= t3lib_extMgm::siteRelpath($this->extKey).'res/audio-player.js';
 
@@ -61,12 +66,14 @@ class tx_audioplayer {
 			'tracker' => 'DDDDDD', 'border' => 'CCCCCC', 'skip' => '666666', 'text' => '333333'
 		);
 		$this->Vars = array();
+		return true;
 	}
 
 	/**
-	 * Set the options for flashfile
+	 * Set options for the flash file
 	 * see manual for complete option reference
 	 *
+	 * @access	public
 	 * @param	array		$options: array with options
 	 * @return	boolean
 	 */
@@ -83,9 +90,10 @@ class tx_audioplayer {
 	}
 
 	/**
-	 * Adjust colors of the flashfile
+	 * Adjust colors of the flash file
 	 * see manual for complete option reference
 	 *
+	 * @access	public
 	 * @param	array		$options: array with options
 	 * @return	boolean
 	 */
@@ -96,6 +104,7 @@ class tx_audioplayer {
 	/**
 	 * Returns code for AudioFlashPlayer
 	 *
+	 * @access	public
 	 * @param	string		$file: path to the mp3 file, multiple files can be passedthrough in an array  
 	 * @param	integer		$playerId: ID of the player (only needed, when more then one player is used on one page)
 	 * @param	string		$titles: Title to be shown in player, mutiple titles for multiple files as array
@@ -117,15 +126,16 @@ class tx_audioplayer {
 		$content .= $renderdTracksOptions;
 		$content .= '});';
 
-		return '<div id="audioplayer_'.$playerId.'">Alternative content</div>
+		return '<div id="audioplayer_'.$playerId.'">'.$this->noJSMessage.'</div>
 		'.t3lib_div::wrapJS($content);
 	}
 
 	/**
 	 * Checks all option/color input values and converts them to valid values
-	 * keys not present in $this->defaultVars are sorted out
+	 * keys not present in $this->defaultVars are droped
 	 *
-	 * @return	boolean		sucess of function
+	 * @access	private
+	 * @return	boolean
 	 */
 	function checkVars() {
 		$result = array();
@@ -138,7 +148,23 @@ class tx_audioplayer {
 					$result[$key] = intval($this->Vars[$key]);
 					if ($result[$key] === null) unset($result[$key]);
 				} else {
-					$result[$key] = substr(strtoupper(strval($this->Vars[$key])),0,6);
+					switch (strlen(strval($this->Vars[$key]))) {
+						CASE 6:
+							$result[$key] = strtoupper(strval($this->Vars[$key]));
+							break;
+						CASE 3:
+							$temp1 = substr(strtoupper(strval($this->Vars[$key])),0,1);
+							$temp2 = substr(strtoupper(strval($this->Vars[$key])),1,1);
+							$temp3 = substr(strtoupper(strval($this->Vars[$key])),2,1);
+							$result[$key] = $temp1.$temp1.$temp2.$temp2.$temp3.$temp3;
+							break;
+						CASE 0:
+							$result[$key] = null;
+							break;
+						default:
+							$result[$key] = substr(strtoupper(strval($this->Vars[$key])).'000000',0,6);
+							break;
+					}
 					if (empty($result[$key])) unset($result[$key]);
 				}
 			}
@@ -152,6 +178,7 @@ class tx_audioplayer {
 	/**
 	 * Converts values like '1', 'True', true to expected boolean input of player.swf (='yes'/'no')
 	 *
+	 * @access	private
 	 * @param	mixed		$input: some unknow input, expected to be boolean
 	 * @return	string		'yes' or 'no'
 	 */
@@ -186,7 +213,9 @@ class tx_audioplayer {
 
 	/**
 	 * Renders 'soundFile', 'titles' and 'artists' variables for output
+	 * more than one value is passed to the function in an array
 	 *
+	 * @access	private
 	 * @param	string/array		$file: filename(s) for output
 	 * @param	string/array		$titles: title(s) for output
 	 * @param	string/array		$artists: artist(s) for output
@@ -196,9 +225,12 @@ class tx_audioplayer {
 		$content = '';
 		if(!empty($file)) {
 			if(is_array($file)) {
+				foreach ($file as $k => $v) {
+					$file[$k] = rawurlencode($v);
+				}
 				$content .= 'soundFile: "'.implode(',',$file).'"';
 			} else {
-				$content .= 'soundFile: "'.$file.'"';
+				$content .= 'soundFile: "'.rawurlencode($file).'"';
 			}
 		} else {
 			return false;
@@ -221,8 +253,9 @@ class tx_audioplayer {
 	}
 	
 	/**
-	 * Renders $this->Vars for output
+	 * Returns rendered $this->Vars for output
 	 *
+	 * @access	private
 	 * @return	string		rendered array
 	 */
 	function renderVars() {
