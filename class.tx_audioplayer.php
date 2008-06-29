@@ -140,6 +140,7 @@ class tx_audioplayer {
 	function checkVars() {
 		$result = array();
 		foreach ($this->Vars as $key => $value) {
+			if ($this->defaultVars[$key] === $this->Vars[$key]) continue;
 			if (in_array($key, array_keys($this->defaultVars))) {
 				if (in_array($this->defaultVars[$key], array('yes','no'))) {
 					$result[$key] = $this->convBoolean($this->Vars[$key]);
@@ -168,6 +169,7 @@ class tx_audioplayer {
 					if (empty($result[$key])) unset($result[$key]);
 				}
 			}
+			if ($this->defaultVars[$key] === $result[$key]) unset($result[$key]);
 		}
 		if (!isset($result['width'])) $result['width'] = $this->defaultVars['width'];
 		$this->Vars = $result;
