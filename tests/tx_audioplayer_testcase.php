@@ -61,7 +61,7 @@ class tx_audioplayer_testcase extends tx_t3unit_testcase {
 	function test_checkVars() {
 		$test = array('Hello1'=>'World1','Hello2'=>'World2',
 				'autostart'=>true,'animation'=>'mussnichsein',
-				'bgmain'=>'000','bg'=>'ff0ec9','rightbghover'=>'fef','leftbg'=>'0','traker'=>'F');
+				'bgmain'=>'000','bg'=>'ff0ec9','rightbghover'=>'fef','leftbg'=>'0','traker'=>'F', 'buffer' => '5');
 		$expected = array('width'=>290,'autostart'=>'yes','bg'=>'FF0EC9','rightbghover'=>'FFEEFF','leftbg'=>'000000');
 		$this->audioplayer->init();
 		$temp = $this->audioplayer->Vars;
