@@ -135,14 +135,19 @@ class tx_audioplayer {
 			return 'no file to play';
 		}
 
-		$GLOBALS['TSFE']->additionalHeaderData['tx_audioplayer1'] = '<script type="text/javascript" src="'.$this->configJS.'"></script>';
-		$GLOBALS['TSFE']->additionalHeaderData['tx_audioplayer2'] = '<script type="text/javascript">AudioPlayer.setup("'.$this->flashFile.'", {'.$renderedVars.'});</script>';
 		$content = 'AudioPlayer.embed("audioplayer_'.$playerId.'", {';
 		$content .= $renderdTracksOptions;
 		$content .= '});';
 
+		$this->setHeaders($renderedVars);
+		
 		return '<div id="audioplayer_'.$playerId.'">'.$this->noJSMessage.'</div>
 			'.t3lib_div::wrapJS($content);
+	}
+	
+	function setHeaders($renderedVars) {
+		$GLOBALS['TSFE']->additionalHeaderData['tx_audioplayer1'] = '<script type="text/javascript" src="'.$this->configJS.'"></script>';
+		$GLOBALS['TSFE']->additionalHeaderData['tx_audioplayer2'] = '<script type="text/javascript">AudioPlayer.setup("'.$this->flashFile.'", {'.$renderedVars.'});</script>';
 	}
 
 	/**
